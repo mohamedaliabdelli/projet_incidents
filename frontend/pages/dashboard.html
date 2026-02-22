@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Incidents RAN & ENV</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+    <h1><span>DRS </span> — Incidents RAN & ENV</h1>
+    <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="vswr.html">VSWR</a>
+        <a href="clock.html">Clock</a>
+        <a href="rtwp.html">RTWP</a>
+        <a href="env_alarms.html">ENV</a>
+    </nav>
+    <div class="subtitle">Direction Réseaux et Services</div>
+</header>
+
+<div class="page-hero">
+    <h2>Vue Globale</h2>
+    <p>Statistiques en temps réel de tous les incidents réseau</p>
+</div>
+
+<div class="stats-cards">
+    <div class="stat-card" style="--card-accent:#ef4444" onclick="window.location='vswr.html'">
+        <div class="card-label">VSWR — Antennes</div>
+        <div class="card-value" id="total-vswr">...</div>
+        <div class="card-sub">incidents antennes</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#3b82f6" onclick="window.location='clock.html'">
+        <div class="card-label">Clock — Horloge</div>
+        <div class="card-value" id="total-clock">...</div>
+        <div class="card-sub">incidents horloge</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#f59e0b" onclick="window.location='rtwp.html'">
+        <div class="card-label">RTWP — Interférences</div>
+        <div class="card-value" id="total-rtwp">...</div>
+        <div class="card-sub">interférences détectées</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#10b981" onclick="window.location='env_alarms.html'">
+        <div class="card-label">ENV — Environnement</div>
+        <div class="card-value" id="total-env">...</div>
+        <div class="card-sub">alarmes environnement</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#8b5cf6">
+        <div class="card-label">Impact Service</div>
+        <div class="card-value" id="total-impact">...</div>
+        <div class="card-sub">services impactés</div>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-box">
+        <h2>Sévérité VSWR</h2>
+        <canvas id="chart-vswr"></canvas>
+    </div>
+    <div class="chart-box">
+        <h2>Sévérité Clock</h2>
+        <canvas id="chart-clock"></canvas>
+    </div>
+    <div class="chart-box">
+        <h2>Total par type</h2>
+        <canvas id="chart-total"></canvas>
+    </div>
+</div>
+
+<footer>DRS &copy; 2026 — Statistique et gestion automatisée des incidents RAN & ENV</footer>
+
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

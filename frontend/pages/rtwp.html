@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>RTWP - Interférences</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+    <h1><span>DRS</span> — Incidents RAN & ENV</h1>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="vswr.html">VSWR</a>
+        <a href="clock.html">Clock</a>
+        <a href="rtwp.html" class="active">RTWP</a>
+        <a href="env_alarms.html">ENV</a>
+    </nav>
+    <div class="subtitle">Direction Réseaux et Services</div>
+</header>
+
+<div class="page-hero">
+    <h2>RTWP — Interférences</h2>
+    <p>Analyse des interférences radio (Received Total Wideband Power)</p>
+</div>
+
+<div class="stats-cards">
+    <div class="stat-card" style="--card-accent:#f59e0b">
+        <div class="card-label">Total interférences</div>
+        <div class="card-value" id="total-rtwp">...</div>
+        <div class="card-sub">interférences détectées</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#ef4444">
+        <div class="card-label">Major</div>
+        <div class="card-value" id="major-rtwp">...</div>
+        <div class="card-sub">alarmes majeures</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#f59e0b">
+        <div class="card-label">Minor</div>
+        <div class="card-value" id="minor-rtwp">...</div>
+        <div class="card-sub">alarmes mineures</div>
+    </div>
+    <div class="stat-card" style="--card-accent:#10b981">
+        <div class="card-label">Résolus</div>
+        <div class="card-value" id="cleared-rtwp">...</div>
+        <div class="card-sub">incidents résolus</div>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-box">
+        <h2>Répartition par sévérité</h2>
+        <canvas id="chart-severity"></canvas>
+    </div>
+    <div class="chart-box">
+        <h2>Statut des alarmes</h2>
+        <canvas id="chart-status"></canvas>
+    </div>
+</div>
+
+<div class="filters-bar">
+    <select id="filter-severity">
+        <option value="">Toutes sévérités</option>
+        <option value="Major">Major</option>
+        <option value="Minor">Minor</option>
+    </select>
+    <select id="filter-status">
+        <option value="">Tous statuts</option>
+        <option value="Cleared">Cleared</option>
+        <option value="Uncleared">Uncleared</option>
+    </select>
+    <input type="text" id="filter-site" placeholder="Filtrer par site...">
+    <button class="btn-filter" onclick="applyFilters()">Filtrer</button>
+    <button class="btn-filter" style="background:#1e2230;border:1px solid rgba(255,102,0,0.3)" onclick="resetFilters()">↺ Reset</button>
+</div>
+
+<div class="table-section">
+    <h2>Liste des interférences RTWP</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Site BBU</th>
+                    <th>Cellule</th>
+                    <th>Alarme</th>
+                    <th>Sévérité</th>
+                    <th>Statut</th>
+                    <th>Durée</th>
+                </tr>
+            </thead>
+            <tbody id="rtwp-table-body">
+                <tr><td colspan="8" class="loading" style="padding:30px;text-align:center">Chargement...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>DRS &copy; 2026 — Statistique et gestion automatisée des incidents RAN & ENV</footer>
+
+<script src="../js/rtwp.js"></script>
+</body>
+</html>
