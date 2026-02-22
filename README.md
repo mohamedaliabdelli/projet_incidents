@@ -110,27 +110,137 @@ python app.py
 
 📁 Structure du Projet
 projet_incidents/
-├── app/
-│   ├── static/
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── images/
-│   ├── templates/
-│   ├── routes/
-│   └── models/
-├── backend/
-│   ├── ia/
-│   │   ├── classification_env.py
-│   │   ├── classification_ran.py
-│   │   └── analyse_clock.py
-│   ├── data_processing/
-│   └── exports/
-├── database/
-│   └── schema.sql
-├── tests/
-├── uploads/
-├── docs/
+│
+├── README.md
 ├── requirements.txt
-├── config.py
-├── app.py
-└── README.md
+├── main.py
+│
+├── backend/
+│   ├── app.py                        # Démarre le serveur Flask/FastAPI
+│   │
+│   ├── config/
+│   │   ├── config.yaml               # Paramètres généraux
+│   │   └── db_config.yaml            # Connexion base de données
+│   │
+│   ├── api/
+│   │   ├── _init_.py
+│   │   ├── vswr.py                   # Routes incidents VSWR
+│   │   ├── clock.py                  # Routes incidents horloge
+│   │   ├── rtwp.py                   # Routes incidents interférence
+│   │   ├── env_alarms.py             # Routes alarmes environnement
+│   │   ├── impact_service.py         # Routes impact sur services
+│   │   └── stats.py                  # Routes statistiques globales
+│   │
+│   ├── services/
+│   │   ├── _init_.py
+│   │   ├── collector.py              # Collecte depuis les fichiers xlsx
+│   │   ├── processor.py              # Nettoyage des données
+│   │   ├── vswr_analyzer.py          # Analyse incidents VSWR
+│   │   ├── clock_analyzer.py         # Analyse incidents horloge
+│   │   ├── rtwp_analyzer.py          # Analyse interférences RTWP
+│   │   ├── env_analyzer.py           # Analyse alarmes ENV
+│   │   ├── impact_analyzer.py        # Analyse impact service
+│   │   ├── classifier.py             # Classification automatique
+│   │   └── alerting.py               # Génération des alertes
+│   │
+│   ├── models/
+│   │   ├── _init_.py
+│   │   ├── vswr_incident.py          # Modèle incident VSWR
+│   │   ├── clock_incident.py         # Modèle incident horloge
+│   │   ├── rtwp_incident.py          # Modèle incident interférence
+│   │   ├── env_alarm.py              # Modèle alarme environnement
+│   │   ├── impact_service.py         # Modèle impact service
+│   │   └── user.py                   # Modèle utilisateur
+│   │
+│   └── tests/
+│       ├── test_vswr.py
+│       ├── test_clock.py
+│       ├── test_rtwp.py
+│       ├── test_env.py
+│       └── test_impact.py
+│
+├── frontend/
+│   ├── index.html                    # Page principale
+│   │
+│   ├── pages/
+│   │   ├── dashboard.html            # Vue globale RAN + ENV
+│   │   ├── vswr.html                 # Page incidents VSWR
+│   │   ├── clock.html                # Page incidents horloge
+│   │   ├── rtwp.html                 # Page interférences
+│   │   ├── env_alarms.html           # Page alarmes ENV
+│   │   ├── impact_service.html       # Page impact service
+│   │   └── reports.html              # Export des rapports
+│   │
+│   ├── css/
+│   │   ├── style.css                 # Style général
+│   │   ├── dashboard.css             # Style tableau de bord
+│   │   └── tables.css                # Style des tableaux
+│   │
+│   ├── js/
+│   │   ├── api.js                    # Appels vers le backend
+│   │   ├── charts.js                 # Affichage des graphiques
+│   │   ├── vswr.js                   # Logique page VSWR
+│   │   ├── clock.js                  # Logique page horloge
+│   │   ├── rtwp.js                   # Logique page interférences
+│   │   ├── env_alarms.js             # Logique page ENV
+│   │   ├── impact_service.js         # Logique page impact
+│   │   └── reports.js                # Logique export rapports
+│   │
+│   └── assets/
+│       └── images/                   # Logos et icônes
+│
+├── database/
+│   ├── schema.sql                    # Structure de toutes les tables
+│   │
+│   ├── migrations/
+│   │   ├── 001_create_vswr.sql
+│   │   ├── 002_create_clock.sql
+│   │   ├── 003_create_rtwp.sql
+│   │   ├── 004_create_env_alarms.sql
+│   │   └── 005_create_impact_service.sql
+│   │
+│   ├── seeds/
+│   │   ├── seed_vswr.sql
+│   │   ├── seed_clock.sql
+│   │   ├── seed_rtwp.sql
+│   │   ├── seed_env_alarms.sql
+│   │   └── seed_impact_service.sql
+│   │
+│   └── queries/
+│       ├── vswr_queries.sql
+│       ├── clock_queries.sql
+│       ├── rtwp_queries.sql
+│       ├── env_queries.sql
+│       └── impact_queries.sql
+│
+├── data/
+│   ├── raw/
+│   │   ├── VSWR.xlsx
+│   │   ├── clock.xlsx
+│   │   ├── RTWP_interférence.xlsx
+│   │   ├── alarmes_environnement.xlsx
+│   │   └── impact_service.xlsx
+│   │
+│   ├── processed/
+│   │   ├── vswr_clean.csv
+│   │   ├── clock_clean.csv
+│   │   ├── rtwp_clean.csv
+│   │   ├── env_alarms_clean.csv
+│   │   └── impact_service_clean.csv
+│   │
+│   ├── exports/
+│   │   ├── csv/
+│   │   └── excel/
+│   │
+│   └── notebooks/
+│       ├── exploration_VSWR.py       # Script exploration données VSWR
+│       ├── exploration_clock.py      # Script exploration données horloge
+│       ├── exploration_RTWP.py       # Script exploration données RTWP
+│       ├── exploration_ENV.py        # Script exploration données ENV
+│       ├── exploration_impact.py     # Script exploration impact service
+│       └── analyse_results.md        # Rapport des résultats d'analyse
+│
+└── docs/
+    ├── architecture.md               # Schéma global du projet
+    ├── user_guide.md                 # Guide d'utilisation
+    └── api_reference.md              # Documentation des routes API
